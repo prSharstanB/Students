@@ -1,0 +1,170 @@
+﻿<UserControl x:Class="Students.Views.IntroductiveCon"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Students.Views"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d"
+             d:DesignHeight="700" d:DesignWidth="1200" 
+             FlowDirection="RightToLeft" >
+    <materialDesign:DialogHost Name="dh" Loaded="Dh_OnLoaded" >
+        <materialDesign:DialogHost.DialogContent>
+            <ProgressBar
+                Style="{DynamicResource MaterialDesignCircularProgressBar}"
+                HorizontalAlignment="Center"
+                Margin="16"
+                IsIndeterminate="True"
+                Value="0" />
+        </materialDesign:DialogHost.DialogContent>
+        <Grid Background="White">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="1.8*"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Grid Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <Grid Column="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                       
+                    </Grid.RowDefinitions>
+                    <materialDesign:Card  HorizontalAlignment="Stretch"  VerticalAlignment="Center" Grid.Row="0"
+                        materialDesign:ShadowAssist.ShadowDepth="Depth1" Margin="50 0 50 0" Background="#F9F9F9"
+                        Padding="2 0 0 0">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <TextBox Grid.Column="0" HorizontalAlignment="Stretch"  VerticalAlignment="Center"
+                                 materialDesign:HintAssist.Hint="رقم الجامعي للطالب"  
+                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                            <Button Grid.Column="0"
+                                Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}" 
+                                ToolTip="البحث" HorizontalAlignment="Right" Width="25" Height="25" Margin="0 0 5 0" >
+                                <materialDesign:PackIcon
+                                    Kind="Search" Foreground="#D12E52"
+                                    Height="15"
+                                    Width="15" />
+                            </Button>
+                        </Grid>
+                    </materialDesign:Card>
+                    <materialDesign:Card  HorizontalAlignment="Stretch"  VerticalAlignment="Center"  Grid.Row="1" Background="#F9F9F9"
+                                          materialDesign:ShadowAssist.ShadowDepth="Depth1" Margin="50 0 50 0" 
+                                          Padding="2 0 0 0">
+                        <TextBox HorizontalAlignment="Stretch"  VerticalAlignment="Center"
+                             materialDesign:HintAssist.Hint="المعدل" 
+                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                    </materialDesign:Card>
+                   
+
+                </Grid>
+                <Grid Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                       
+                    </Grid.RowDefinitions>
+                    <materialDesign:Card  HorizontalAlignment="Stretch"  VerticalAlignment="Center"  Grid.Row="0"
+                                          materialDesign:ShadowAssist.ShadowDepth="Depth1" Margin="50 0 50 0" Background="#F9F9F9"
+                                          Padding="2 0 0 0">
+                        <ComboBox
+                            materialDesign:HintAssist.Hint="المقرر"
+                            Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                            <ComboBoxItem>
+                                تحليل عددي
+                            </ComboBoxItem>
+                            <ComboBoxItem>
+                                برمجة1
+                            </ComboBoxItem>
+
+                        </ComboBox>
+                    </materialDesign:Card>
+                    <materialDesign:Card  HorizontalAlignment="Stretch"  VerticalAlignment="Center"  Grid.Row="1"
+                                          materialDesign:ShadowAssist.ShadowDepth="Depth1" Margin="50 0 50 0" Background="#F9F9F9"
+                                          Padding="2 0 0 0">
+                        <DatePicker Grid.Row="1"
+                                    HorizontalAlignment="Stretch"  VerticalAlignment="Center"
+                                    materialDesign:HintAssist.Hint="تاريخ التقديم" 
+                                    Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
+                    </materialDesign:Card>
+                   
+                </Grid>
+                <Rectangle Stroke="Gray" HorizontalAlignment="Right" StrokeThickness="1" Margin="0 40 0 20"></Rectangle>
+            </Grid>
+            <Grid Row="1" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Button
+                    Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}" 
+                    ToolTip="الإضافة" HorizontalAlignment="Right" Margin="0 0 20 0">
+                    <materialDesign:PackIcon
+                        Kind="Plus" Foreground="#D12E52"
+                        Height="25"
+                        Width="25" />
+                </Button>
+                <DataGrid x:Name="DgvMachine" Grid.Row="1"  IsReadOnly="True" 
+                          BorderBrush="#60CB95"
+                          BorderThickness="1"
+                          Margin="20 10 20 20"
+                          CanUserSortColumns="True"
+                          CanUserAddRows="False"
+                          AutoGenerateColumns="false"
+                          FontSize="14"
+                              
+                          materialDesign:DataGridAssist.CellPadding="10 8 8 8"
+                          materialDesign:DataGridAssist.ColumnHeaderPadding="7" >
+                    <DataGrid.Resources>
+                        <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
+                            <Setter Property="Background" Value="#F7EDEDED" />
+                        </Style>
+                    </DataGrid.Resources>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Width="*" Header="اسم الطالب " Binding="{Binding EmployeeNumber}"></DataGridTextColumn>
+                        <DataGridTextColumn Width="*" Header="المقرر" Binding="{Binding SequenceNumber}"></DataGridTextColumn>
+                        <DataGridTextColumn Width="*" Header="المعدل" Binding="{Binding Address}"></DataGridTextColumn>
+                        <DataGridTextColumn Width="*" Header="تاريخ التقديم" Binding="{Binding Address}"></DataGridTextColumn>
+                        <DataGridTemplateColumn Width="*">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate >
+                                    <StackPanel Orientation="Horizontal">
+                                        <Button       ToolTip="عرض"                  Width="20" Height="20"  materialDesign:ShadowAssist.ShadowDepth="Depth0"  BorderThickness="0" Name="ButtonShow" Click="ButtonShow_OnClick"  CommandParameter="{Binding Id}" >
+                                            <Button.Background>
+                                                <ImageBrush  ImageSource ="../Images/eye.png">
+                                                </ImageBrush>
+                                            </Button.Background>
+
+                                        </Button>
+                                        <Button   Margin="10 0 10 0"  ToolTip="تعديل"      Click="ButtonEdit_OnClick"                Width="20" Height="20"  materialDesign:ShadowAssist.ShadowDepth="Depth0"  BorderThickness="0" Name="ButtonEdit"  CommandParameter="{Binding Id}"   >
+                                            <Button.Background>
+                                                <ImageBrush  ImageSource="../Images/create-new-pencil-button.png">
+                                                </ImageBrush>
+                                            </Button.Background>
+
+                                        </Button>
+                                        <Button             ToolTip="حذف"      Click="ButtonDelete_OnClick"        Width="20" Height="20"  materialDesign:ShadowAssist.ShadowDepth="Depth0"  BorderThickness="0" Name="ButtonDelete"   CommandParameter="{Binding Id}">
+                                            <Button.Background>
+                                                <ImageBrush  ImageSource="../Images/cancel-button.png">
+                                                </ImageBrush>
+                                            </Button.Background>
+
+                                        </Button>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </Grid>
+    </materialDesign:DialogHost>
+</UserControl>

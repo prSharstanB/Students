@@ -1,0 +1,190 @@
+﻿<UserControl x:Class="Students.Views.StudentCon"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Students.Views"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d"
+             d:DesignHeight="700" d:DesignWidth="1200" 
+             FlowDirection="RightToLeft">
+    <materialDesign:DialogHost Name="dh" Loaded="Dh_OnLoaded" >
+        <materialDesign:DialogHost.DialogContent>
+            <ProgressBar
+                Style="{DynamicResource MaterialDesignCircularProgressBar}"
+                HorizontalAlignment="Center"
+                Margin="16"
+                IsIndeterminate="True"
+                Value="0" />
+        </materialDesign:DialogHost.DialogContent>
+        <Grid Background="White">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="1.8*"></RowDefinition>
+            </Grid.RowDefinitions> 
+
+            <Grid Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                
+                <Grid Column="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <materialDesign:Card  HorizontalAlignment="Stretch"  VerticalAlignment="Center" Grid.Row="0"
+                        materialDesign:ShadowAssist.ShadowDepth="Depth1" Margin="50 25 50 0" Background="#F9F9F9"
+                        Padding="2 0 0 0">
+                        <TextBox HorizontalAlignment="Stretch"  VerticalAlignment="Center" Name="TxTFirstName"
+                                 materialDesign:HintAssist.Hint="اسم الأول"  
+                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                    </materialDesign:Card>
+                    <materialDesign:Card  HorizontalAlignment="Stretch"  VerticalAlignment="Center"  Grid.Row="1" Background="#F9F9F9"
+                                          materialDesign:ShadowAssist.ShadowDepth="Depth1" Margin="50 25 50 0" 
+                                          Padding="2 0 0 0">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <TextBox Grid.Column="0" HorizontalAlignment="Stretch"  VerticalAlignment="Center"
+                                     materialDesign:HintAssist.Hint="رقم الجامعي"  Name="TxtNumber" 
+                                     Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                            <Button Grid.Column="0"
+                                    Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}" 
+                                    ToolTip="البحث" HorizontalAlignment="Right" Width="25" Height="25" Margin="0 0 5 0" >
+                                <materialDesign:PackIcon
+                                    Kind="Search" Foreground="#D12E52"
+                                    Height="15"
+                                    Width="15" />
+                            </Button>
+                        </Grid>
+                    </materialDesign:Card>
+                    <materialDesign:Card  HorizontalAlignment="Stretch"  VerticalAlignment="Center"  Grid.Row="2"
+                                          materialDesign:ShadowAssist.ShadowDepth="Depth1" Margin="50 25 50 0" 
+                                          Padding="2 0 0 0" Background="#F9F9F9">
+                        <DatePicker Grid.Row="1"
+                                    HorizontalAlignment="Stretch"  VerticalAlignment="Center" 
+                                    materialDesign:HintAssist.Hint="تاريخ الميلاد"  Name="DpBirthday"
+                                    Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
+                    </materialDesign:Card>
+                    
+                </Grid>
+                <Grid Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <materialDesign:Card  HorizontalAlignment="Stretch"  VerticalAlignment="Center"  Grid.Row="0"
+                                          materialDesign:ShadowAssist.ShadowDepth="Depth1" Margin="50 25 50 0" Background="#F9F9F9"
+                                          Padding="2 0 0 0">
+                    <TextBox HorizontalAlignment="Stretch"  VerticalAlignment="Center" Name="TxtLastName"
+                             materialDesign:HintAssist.Hint="اسم الأخير"  
+                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                    </materialDesign:Card>
+                    <materialDesign:Card  HorizontalAlignment="Stretch"  VerticalAlignment="Center"  Grid.Row="1"
+                                          materialDesign:ShadowAssist.ShadowDepth="Depth1" Margin="50 25 50 0" Background="#F9F9F9"
+                                          Padding="2 0 0 0">
+                        <TextBox HorizontalAlignment="Stretch"  VerticalAlignment="Center"
+                                 materialDesign:HintAssist.Hint="الهاتف" Name="TxtPhone"  
+                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                    </materialDesign:Card>
+                    <Grid Row="2" Margin=" 0 20 0 0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Label Content="الجنس :" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0 0 100 0" FontSize="16"></Label>
+                        <ToggleButton Grid.Column="1" HorizontalAlignment="Left" 
+                                      Style="{StaticResource MaterialDesignActionToggleButton}"
+                                      Width="43" Height="43" Name="BtnGender">
+                            <ToggleButton.Content>
+                                <materialDesign:PackIcon Width="40" Height="40"
+                                                         ToolTip="أنثى"
+                                                         Kind="HumanFemale" />
+                            </ToggleButton.Content>
+                            <materialDesign:ToggleButtonAssist.OnContent>
+                                <materialDesign:PackIcon Width="40" Height="40"
+                                                         ToolTip="ذكر"
+                                                         Kind="HumanMale" />
+                            </materialDesign:ToggleButtonAssist.OnContent>
+                        </ToggleButton>
+                    </Grid>
+                </Grid>
+                <Rectangle Stroke="Gray" HorizontalAlignment="Right" StrokeThickness="1" Margin="0 40 0 20"></Rectangle>
+            </Grid>
+            <Grid Row="1" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <ToggleButton Grid.Column="1"  HorizontalAlignment="Right" Margin="0 0 20 0" Click="BtnAdd_OnClick"  Background="LightPink"
+                              Style="{StaticResource MaterialDesignActionToggleButton}"
+                              Width="48" Height="48" Name="BtnEditAdd">
+                    <ToggleButton.Content>
+                        <materialDesign:PackIcon Width="25" Height="25" Foreground="#D12E52"
+                                                 ToolTip="إضافة"
+                                                 Kind="Plus" />
+                    </ToggleButton.Content>
+                    <materialDesign:ToggleButtonAssist.OnContent>
+                        <materialDesign:PackIcon Width="25" Height="25"  Foreground="#D12E52"
+                                                 ToolTip="التعديل"
+                                                 Kind="Update" />
+                    </materialDesign:ToggleButtonAssist.OnContent>
+                </ToggleButton>
+                <DataGrid x:Name="DgvStu" Grid.Row="1"  IsReadOnly="True" 
+                          BorderBrush="#60CB95"
+                          BorderThickness="1"
+                          Margin="20 10 20 20"
+                          CanUserSortColumns="True"
+                          CanUserAddRows="False"
+                          AutoGenerateColumns="false"
+                          FontSize="14"
+                              
+                          materialDesign:DataGridAssist.CellPadding="10 8 8 8"
+                          materialDesign:DataGridAssist.ColumnHeaderPadding="7" >
+                    <DataGrid.Resources>
+                        <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
+                            <Setter Property="Background" Value="#F7EDEDED" />
+                        </Style>
+                    </DataGrid.Resources>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Width="*" Header="اسم الاول" Binding="{Binding FirstName}"></DataGridTextColumn>
+                        <DataGridTextColumn Width="*" Header="اسم الااخير" Binding="{Binding LastName}"></DataGridTextColumn>
+                        <DataGridTextColumn Width="*" Header="الرقم الجامعي" Binding="{Binding StuNumber}"></DataGridTextColumn>
+                        <DataGridTextColumn Width="*" Header="الهاتف" Binding="{Binding Phone}"></DataGridTextColumn>
+                        <DataGridTextColumn Width="*" Header="الجنس" Binding="{Binding Gender}"></DataGridTextColumn>
+                        <DataGridTextColumn Width="*" Header="تاريخ الميلاد" Binding="{Binding BirthDate , StringFormat = d}"></DataGridTextColumn>
+                        <DataGridTemplateColumn Width="*">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate >
+                                    <StackPanel Orientation="Horizontal">
+                                        <Button       ToolTip="التعديل"          Margin="0 0 30 0"        Width="20" Height="20"  materialDesign:ShadowAssist.ShadowDepth="Depth0"  BorderThickness="0" Name="ButtonEdit" Click="ButtonEdit_OnClick"  CommandParameter="{Binding Id}" >
+                                            <Button.Background>
+                                                <ImageBrush  ImageSource ="../Images/create-new-pencil-button.png">
+                                                </ImageBrush>
+                                            </Button.Background>
+
+                                        </Button>
+
+                                        <Button             ToolTip="حذف" Margin="0 0 20 0"      Click="ButtonDelete_OnClick"        Width="20" Height="20"  materialDesign:ShadowAssist.ShadowDepth="Depth0"  BorderThickness="0" Name="ButtonDelete"   CommandParameter="{Binding Id}">
+                                            <Button.Background>
+                                                <ImageBrush  ImageSource="../Images/cancel-button.png">
+                                                </ImageBrush>
+                                            </Button.Background>
+
+                                        </Button>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </Grid>
+    </materialDesign:DialogHost>
+</UserControl>
