@@ -36,19 +36,19 @@
                        
                     </Grid.RowDefinitions>
                     <materialDesign:Card  HorizontalAlignment="Stretch"  VerticalAlignment="Center" Grid.Row="0"
-                        materialDesign:ShadowAssist.ShadowDepth="Depth1" Margin="50 0 50 0" Background="#F9F9F9"
-                        Padding="2 0 0 0">
+                                          materialDesign:ShadowAssist.ShadowDepth="Depth1" Margin="50 0 50 0" Background="#F9F9F9"
+                                          Padding="2 0 0 0">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"></ColumnDefinition>
                                 <ColumnDefinition Width="Auto"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
                             <TextBox Grid.Column="0" HorizontalAlignment="Stretch"  VerticalAlignment="Center"
-                                 materialDesign:HintAssist.Hint="رقم الجامعي للطالب"  
-                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                                     materialDesign:HintAssist.Hint="رقم الجامعي للطالب" Name="TxtNum" 
+                                     Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
                             <Button Grid.Column="0"
-                                Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}" 
-                                ToolTip="البحث" HorizontalAlignment="Right" Width="25" Height="25" Margin="0 0 5 0" >
+                                    Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}" 
+                                    ToolTip="البحث" HorizontalAlignment="Right" Width="25" Height="25" Margin="0 0 5 0" >
                                 <materialDesign:PackIcon
                                     Kind="Search" Foreground="#D12E52"
                                     Height="15"
@@ -60,8 +60,8 @@
                                           materialDesign:ShadowAssist.ShadowDepth="Depth1" Margin="50 0 50 0" 
                                           Padding="2 0 0 0">
                         <TextBox HorizontalAlignment="Stretch"  VerticalAlignment="Center"
-                             materialDesign:HintAssist.Hint="المعدل" 
-                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                                 materialDesign:HintAssist.Hint="المعدل"  Name="TxtAverage"
+                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
                     </materialDesign:Card>
                    
 
@@ -76,15 +76,9 @@
                                           materialDesign:ShadowAssist.ShadowDepth="Depth1" Margin="50 0 50 0" Background="#F9F9F9"
                                           Padding="2 0 0 0">
                         <ComboBox
-                            materialDesign:HintAssist.Hint="المقرر"
-                            Style="{StaticResource MaterialDesignFloatingHintComboBox}">
-                            <ComboBoxItem>
-                                تحليل عددي
-                            </ComboBoxItem>
-                            <ComboBoxItem>
-                                برمجة1
-                            </ComboBoxItem>
-
+                            materialDesign:HintAssist.Hint="المقرر" Name="ComSubject"  SelectionChanged="ComSubject_OnSelectionChanged"
+                            Style="{StaticResource MaterialDesignFloatingHintComboBox}" 
+                            DisplayMemberPath="Name" SelectedValuePath="Id">
                         </ComboBox>
                     </materialDesign:Card>
                     <materialDesign:Card  HorizontalAlignment="Stretch"  VerticalAlignment="Center"  Grid.Row="1"
@@ -92,10 +86,10 @@
                                           Padding="2 0 0 0">
                         <DatePicker Grid.Row="1"
                                     HorizontalAlignment="Stretch"  VerticalAlignment="Center"
-                                    materialDesign:HintAssist.Hint="تاريخ التقديم" 
+                                    materialDesign:HintAssist.Hint="تاريخ التقديم" Name="DpInt"
                                     Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
                     </materialDesign:Card>
-                   
+      
                 </Grid>
                 <Rectangle Stroke="Gray" HorizontalAlignment="Right" StrokeThickness="1" Margin="0 40 0 20"></Rectangle>
             </Grid>
@@ -104,15 +98,21 @@
                     <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="*"></RowDefinition>
                 </Grid.RowDefinitions>
-                <Button
-                    Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}" 
-                    ToolTip="الإضافة" HorizontalAlignment="Right" Margin="0 0 20 0">
-                    <materialDesign:PackIcon
-                        Kind="Plus" Foreground="#D12E52"
-                        Height="25"
-                        Width="25" />
-                </Button>
-                <DataGrid x:Name="DgvMachine" Grid.Row="1"  IsReadOnly="True" 
+                <ToggleButton Grid.Column="1"  HorizontalAlignment="Right" Margin="0 0 20 0" Click="BtnEditAdd_OnClick"  Background="LightPink"
+                              Style="{StaticResource MaterialDesignActionToggleButton}"
+                              Width="48" Height="48" Name="BtnEditAdd"  >
+                    <ToggleButton.Content>
+                        <materialDesign:PackIcon Width="25" Height="25" Foreground="#D12E52"
+                                                 ToolTip="إضافة"
+                                                 Kind="Plus" />
+                    </ToggleButton.Content>
+                    <materialDesign:ToggleButtonAssist.OnContent>
+                        <materialDesign:PackIcon Width="25" Height="25"  Foreground="#D12E52"
+                                                 ToolTip="التعديل"
+                                                 Kind="Update" />
+                    </materialDesign:ToggleButtonAssist.OnContent>
+                </ToggleButton>
+                <DataGrid x:Name="DgvIntro" Grid.Row="1"  IsReadOnly="True" 
                           BorderBrush="#60CB95"
                           BorderThickness="1"
                           Margin="20 10 20 20"
@@ -129,29 +129,23 @@
                         </Style>
                     </DataGrid.Resources>
                     <DataGrid.Columns>
-                        <DataGridTextColumn Width="*" Header="اسم الطالب " Binding="{Binding EmployeeNumber}"></DataGridTextColumn>
-                        <DataGridTextColumn Width="*" Header="المقرر" Binding="{Binding SequenceNumber}"></DataGridTextColumn>
-                        <DataGridTextColumn Width="*" Header="المعدل" Binding="{Binding Address}"></DataGridTextColumn>
-                        <DataGridTextColumn Width="*" Header="تاريخ التقديم" Binding="{Binding Address}"></DataGridTextColumn>
+                        <DataGridTextColumn Width="*" Header="اسم الطالب " Binding="{Binding Student.FirstName}"></DataGridTextColumn>
+                        <DataGridTextColumn Width="*" Header="المقرر" Binding="{Binding Subject.Name}"></DataGridTextColumn>
+                        <DataGridTextColumn Width="*" Header="المعدل" Binding="{Binding Avg}"></DataGridTextColumn>
+                        <DataGridTextColumn Width="*" Header="تاريخ التقديم" Binding="{Binding IntDate ,StringFormat=d}"></DataGridTextColumn>
                         <DataGridTemplateColumn Width="*">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate >
                                     <StackPanel Orientation="Horizontal">
-                                        <Button       ToolTip="عرض"                  Width="20" Height="20"  materialDesign:ShadowAssist.ShadowDepth="Depth0"  BorderThickness="0" Name="ButtonShow" Click="ButtonShow_OnClick"  CommandParameter="{Binding Id}" >
+                                        <Button       ToolTip="التعديل"          Margin="0 0 30 0"        Width="20" Height="20"  materialDesign:ShadowAssist.ShadowDepth="Depth0"  BorderThickness="0" Name="ButtonEdit" Click="ButtonEdit_OnClick"  CommandParameter="{Binding Id}" >
                                             <Button.Background>
-                                                <ImageBrush  ImageSource ="../Images/eye.png">
+                                                <ImageBrush  ImageSource ="../Images/create-new-pencil-button.png">
                                                 </ImageBrush>
                                             </Button.Background>
 
                                         </Button>
-                                        <Button   Margin="10 0 10 0"  ToolTip="تعديل"      Click="ButtonEdit_OnClick"                Width="20" Height="20"  materialDesign:ShadowAssist.ShadowDepth="Depth0"  BorderThickness="0" Name="ButtonEdit"  CommandParameter="{Binding Id}"   >
-                                            <Button.Background>
-                                                <ImageBrush  ImageSource="../Images/create-new-pencil-button.png">
-                                                </ImageBrush>
-                                            </Button.Background>
 
-                                        </Button>
-                                        <Button             ToolTip="حذف"      Click="ButtonDelete_OnClick"        Width="20" Height="20"  materialDesign:ShadowAssist.ShadowDepth="Depth0"  BorderThickness="0" Name="ButtonDelete"   CommandParameter="{Binding Id}">
+                                        <Button             ToolTip="حذف" Margin="0 0 20 0"      Click="ButtonDelete_OnClick"        Width="20" Height="20"  materialDesign:ShadowAssist.ShadowDepth="Depth0"  BorderThickness="0" Name="ButtonDelete"   CommandParameter="{Binding Id}">
                                             <Button.Background>
                                                 <ImageBrush  ImageSource="../Images/cancel-button.png">
                                                 </ImageBrush>

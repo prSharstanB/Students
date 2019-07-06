@@ -26,19 +26,20 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"></RowDefinition>
                     <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
                 </Grid.RowDefinitions>
                 <materialDesign:Card  HorizontalAlignment="Left"  VerticalAlignment="Center"  Grid.Row="0" Width="500"
-                                      materialDesign:ShadowAssist.ShadowDepth="Depth1" Margin="50 30 50 0" Background="#F9F9F9"
+                                      materialDesign:ShadowAssist.ShadowDepth="Depth1" Margin="50 25 50 0" Background="#F9F9F9"
                                       Padding="2 0 0 0">
-                    <TextBox HorizontalAlignment="Stretch"  VerticalAlignment="Center"
+                    <TextBox HorizontalAlignment="Stretch"  VerticalAlignment="Center" Name="TxtName"
                              materialDesign:HintAssist.Hint="اسم المقرر"  
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
                 </materialDesign:Card>
                 <materialDesign:Card  HorizontalAlignment="Left"  VerticalAlignment="Center"  Grid.Row="1" Width="500"
-                                      materialDesign:ShadowAssist.ShadowDepth="Depth1" Margin="50 30 50 0" Background="#F9F9F9"
+                                      materialDesign:ShadowAssist.ShadowDepth="Depth1" Margin="50 25 50 0" Background="#F9F9F9"
                                       Padding="2 0 0 0">
                     <ComboBox
-                        materialDesign:HintAssist.Hint="نوع المقرر"
+                        materialDesign:HintAssist.Hint="نوع المقرر" Name="ComSubject"
                         Style="{StaticResource MaterialDesignFloatingHintComboBox}">
                         <ComboBoxItem>
                            عملي
@@ -48,6 +49,36 @@
                         </ComboBoxItem>
                       
                     </ComboBox>
+
+
+                </materialDesign:Card>
+                <materialDesign:Card  HorizontalAlignment="Left"  VerticalAlignment="Center"  Grid.Row="2" Width="500"
+                                      materialDesign:ShadowAssist.ShadowDepth="Depth1" Margin="50 25 50 0" Background="#F9F9F9"
+                                      Padding="2 0 0 0">
+                    <ComboBox
+                        materialDesign:HintAssist.Hint="نوع المقرر" Name="ComStudyYear"
+                        Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                        <ComboBoxItem>
+                            الاولى 
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            الثانية
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            الثالثة
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            الرابعة
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            الخامسة
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            السادسة
+                        </ComboBoxItem>
+                    </ComboBox>
+
+
                 </materialDesign:Card>
             </Grid>
             <Grid Row="1" >
@@ -55,15 +86,22 @@
                     <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="*"></RowDefinition>
                 </Grid.RowDefinitions>
-                <Button
-                    Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}" 
-                    ToolTip="الإضافة" HorizontalAlignment="Right" Margin="0 0 20 0">
-                    <materialDesign:PackIcon
-                        Kind="Plus" Foreground="#D12E52"
-                        Height="25"
-                        Width="25" />
-                </Button>
-                <DataGrid x:Name="DgvMachine" Grid.Row="1"  IsReadOnly="True" 
+                <ToggleButton Grid.Column="1"  HorizontalAlignment="Right" Margin="0 0 20 0" Click="BtnEditAdd_OnClick"  Background="LightPink"
+                              Style="{StaticResource MaterialDesignActionToggleButton}"
+                              Width="48" Height="48" Name="BtnEditAdd" >
+                    <ToggleButton.Content>
+                        <materialDesign:PackIcon Width="25" Height="25" Foreground="#D12E52"
+                                                 ToolTip="إضافة"
+                                                 Kind="Plus" />
+                    </ToggleButton.Content>
+                    <materialDesign:ToggleButtonAssist.OnContent>
+                        <materialDesign:PackIcon Width="25" Height="25"  Foreground="#D12E52"
+                                                 ToolTip="التعديل"
+                                                 Kind="Update" />
+                    </materialDesign:ToggleButtonAssist.OnContent>
+                </ToggleButton>
+                
+                <DataGrid x:Name="DgvSubject" Grid.Row="1"  IsReadOnly="True" 
                           BorderBrush="#60CB95"
                           BorderThickness="1"
                           Margin="20 10 20 20"
@@ -80,28 +118,22 @@
                         </Style>
                     </DataGrid.Resources>
                     <DataGrid.Columns>
-                        <DataGridTextColumn Width="*" Header="اسم المقرر" Binding="{Binding EmployeeNumber}"></DataGridTextColumn>
-                        <DataGridTextColumn Width="*" Header="نوع المقرر" Binding="{Binding SequenceNumber}"></DataGridTextColumn>
-                       
+                        <DataGridTextColumn Width="*" Header="اسم المقرر" Binding="{Binding Name}"></DataGridTextColumn>
+                        <DataGridTextColumn Width="*" Header="نوع المقرر" Binding="{Binding Type}"></DataGridTextColumn>
+                        <DataGridTextColumn Width="*" Header="السنة الدراسية" Binding="{Binding StudyYear}"></DataGridTextColumn>
                         <DataGridTemplateColumn Width="*">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate >
                                     <StackPanel Orientation="Horizontal">
-                                        <Button       ToolTip="عرض"                  Width="20" Height="20"  materialDesign:ShadowAssist.ShadowDepth="Depth0"  BorderThickness="0" Name="ButtonShow" Click="ButtonShow_OnClick"  CommandParameter="{Binding Id}" >
-                                            <Button.Background>
-                                                <ImageBrush  ImageSource ="../Images/eye.png">
-                                                </ImageBrush>
-                                            </Button.Background>
-
-                                        </Button>
-                                        <Button   Margin="10 0 10 0"  ToolTip="تعديل"      Click="ButtonEdit_OnClick"                Width="20" Height="20"  materialDesign:ShadowAssist.ShadowDepth="Depth0"  BorderThickness="0" Name="ButtonEdit"  CommandParameter="{Binding Id}"   >
+                                       
+                                        <Button   Margin="20 0 20 0"  ToolTip="تعديل"      Click="ButtonEdit_OnClick"                Width="20" Height="20"  materialDesign:ShadowAssist.ShadowDepth="Depth0"  BorderThickness="0" Name="ButtonEdit"  CommandParameter="{Binding Id}"   >
                                             <Button.Background>
                                                 <ImageBrush  ImageSource="../Images/create-new-pencil-button.png">
                                                 </ImageBrush>
                                             </Button.Background>
 
                                         </Button>
-                                        <Button             ToolTip="حذف"      Click="ButtonDelete_OnClick"        Width="20" Height="20"  materialDesign:ShadowAssist.ShadowDepth="Depth0"  BorderThickness="0" Name="ButtonDelete"   CommandParameter="{Binding Id}">
+                                        <Button         Margin="20 0 20 0"    ToolTip="حذف"      Click="ButtonDelete_OnClick"        Width="20" Height="20"  materialDesign:ShadowAssist.ShadowDepth="Depth0"  BorderThickness="0" Name="ButtonDelete"   CommandParameter="{Binding Id}">
                                             <Button.Background>
                                                 <ImageBrush  ImageSource="../Images/cancel-button.png">
                                                 </ImageBrush>

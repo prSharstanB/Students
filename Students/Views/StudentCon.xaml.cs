@@ -99,7 +99,7 @@ namespace Students.Views
                             Context.SaveChanges();
                             Load();
                           
-                        }
+                        } 
                         else
                         {
                             
@@ -111,27 +111,38 @@ namespace Students.Views
                         }
                         else
                         {
+                            var qFind = Context.Students.SingleOrDefault(i => i.StuNumber == num && i.Id != IdEdit);
+                            if (qFind == null)
+                            {
+                                if (BtnGender.IsChecked == true)
+                                    gend = "ذكر";
+                                else
+                                {
+                                    gend = "أنثى";
+                                }
 
-                            if (BtnGender.IsChecked == true)
-                                gend = "ذكر";
+                                var query = Context.Students.Single(i => i.Id == IdEdit && i.isDeleted == false);
+
+                                query.FirstName = TxTFirstName.Text;
+                                query.LastName = TxtLastName.Text;
+                                query.Phone = Convert.ToInt32(TxtPhone.Text);
+                                query.BirthDate = Convert.ToDateTime(DpBirthday.Text);
+                                query.Gender = gend;
+                                query.StuNumber = Convert.ToInt32(TxtNumber.Text);
+                                BtnEditAdd.IsChecked = false;
+                                Context.SaveChanges();
+                                Load();
+                            }
                             else
                             {
-                                gend = "أنثى";
+
+                                MessageBox.Show(" عذراً ! هناك طالب مسبق التسجيل بنفس رقم الجامعي  ", "", MessageBoxButton.OK,
+                                    MessageBoxImage.Error);
+                                BtnEditAdd.IsChecked = true;
                             }
 
-                            var query = Context.Students.Single(i => i.Id == IdEdit && i.isDeleted == false);
-
-                            query.FirstName = TxTFirstName.Text;
-                            query.LastName = TxtLastName.Text;
-                            query.Phone = Convert.ToInt32(TxtPhone.Text);
-                            query.BirthDate = Convert.ToDateTime(DpBirthday.Text);
-                            query.Gender = gend;
-                            query.StuNumber = Convert.ToInt32(TxtNumber.Text);
-                            BtnEditAdd.IsChecked = false;
-                            Context.SaveChanges();
-                            Load();
-                        }
-            TxtNumber.Text = " ";
+                }
+                TxtNumber.Text = " ";
             TxTFirstName.Text = " ";
             TxtLastName.Text = "";
             TxtPhone.Text = "";
@@ -149,7 +160,7 @@ namespace Students.Views
             object ID = ((Button)sender).CommandParameter;
 
             IdEdit = (int)ID;
-            MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("Are you sure?", "Delete Confirmation", System.Windows.MessageBoxButton.YesNo);
+            MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("هل أنت متأكد من إجراء هذه العملية ؟", "", System.Windows.MessageBoxButton.YesNo);
             if (messageBoxResult == MessageBoxResult.Yes)
             {
                 var q = Context.Students.Single(i => i.Id == IdEdit && i.isDeleted==false);

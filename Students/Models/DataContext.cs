@@ -15,7 +15,7 @@ namespace Students.Models
         }
         public DbSet<Student> Students { get; set; }
         public DbSet<Registering> Registerings { get; set; }
-        public DbSet<RegType> RegTypes { get; set; }
+       
         public DbSet<Subject>  Subjects { get; set; }
         public DbSet<Introductive> Introductives { get; set; }
        

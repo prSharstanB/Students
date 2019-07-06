@@ -40,7 +40,7 @@
                     <ColumnDefinition Width="*"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <materialDesign:Card   Grid.Column="0" Background="LightPink"
+                <materialDesign:Card  Name="StatCard" Grid.Column="0" Background="LightPink" MouseDown="StatCart_OnMouseDown"
                                        materialDesign:ShadowAssist.ShadowDepth="Depth3"
                                        materialDesign:ShadowAssist.ShadowEdges="Bottom,Right"
                                        VerticalAlignment="Stretch"

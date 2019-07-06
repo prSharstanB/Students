@@ -39,7 +39,7 @@
                             <ColumnDefinition Width="*"></ColumnDefinition>
                             <ColumnDefinition Width="Auto"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
-                        <TextBox Grid.Column="0" HorizontalAlignment="Stretch"  VerticalAlignment="Center"
+                        <TextBox Grid.Column="0" HorizontalAlignment="Stretch"  VerticalAlignment="Center" Name="TxtNum"
                                  materialDesign:HintAssist.Hint="رقم الجامعي للطالب"  
                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
                         <Button Grid.Column="0"
@@ -56,7 +56,7 @@
                                           materialDesign:ShadowAssist.ShadowDepth="Depth1" Margin="50 25 50 0"  Width="500"
                                           Padding="2 0 0 0">
                     <ComboBox
-                        materialDesign:HintAssist.Hint="نوع التسجيل"
+                        materialDesign:HintAssist.Hint="نوع التسجيل" Name="ComType"
                         Style="{StaticResource MaterialDesignFloatingHintComboBox}">
                         <ComboBoxItem>
                             تسجيل كمستجد
@@ -74,7 +74,7 @@
                                           Padding="2 0 0 0" Background="#F9F9F9">
                         <DatePicker Grid.Row="1"
                                     HorizontalAlignment="Stretch"  VerticalAlignment="Center"
-                                    materialDesign:HintAssist.Hint="تاريخ التسجيل" 
+                                    materialDesign:HintAssist.Hint="تاريخ التسجيل"  Name="DpReg"
                                     Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
                     </materialDesign:Card>
                 
@@ -86,15 +86,21 @@
                     <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="*"></RowDefinition>
                 </Grid.RowDefinitions>
-                <Button
-                    Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}" 
-                    ToolTip="الإضافة" HorizontalAlignment="Right" Margin="0 0 20 0">
-                    <materialDesign:PackIcon
-                        Kind="Plus" Foreground="#D12E52"
-                        Height="25"
-                        Width="25" />
-                </Button>
-                <DataGrid x:Name="DgvMachine" Grid.Row="1"  IsReadOnly="True" 
+                <ToggleButton Grid.Column="1"  HorizontalAlignment="Right" Margin="0 0 20 0" Click="BtnEditAdd_OnClick"  Background="LightPink"
+                              Style="{StaticResource MaterialDesignActionToggleButton}"
+                              Width="48" Height="48" Name="BtnEditAdd" >
+                    <ToggleButton.Content>
+                        <materialDesign:PackIcon Width="25" Height="25" Foreground="#D12E52"
+                                                 ToolTip="إضافة"
+                                                 Kind="Plus" />
+                    </ToggleButton.Content>
+                    <materialDesign:ToggleButtonAssist.OnContent>
+                        <materialDesign:PackIcon Width="25" Height="25"  Foreground="#D12E52"
+                                                 ToolTip="التعديل"
+                                                 Kind="Update" />
+                    </materialDesign:ToggleButtonAssist.OnContent>
+                </ToggleButton>
+                <DataGrid x:Name="DgvReg" Grid.Row="1"  IsReadOnly="True" 
                           BorderBrush="#60CB95"
                           BorderThickness="1"
                           Margin="20 10 20 20"
@@ -104,35 +110,29 @@
                           FontSize="14"
                               
                           materialDesign:DataGridAssist.CellPadding="10 8 8 8"
-                          materialDesign:DataGridAssist.ColumnHeaderPadding="7" SelectionChanged="DgvMachine_SelectionChanged" >
+                          materialDesign:DataGridAssist.ColumnHeaderPadding="7" >
                     <DataGrid.Resources>
                         <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
                             <Setter Property="Background" Value="#F7EDEDED" />
                         </Style>
                     </DataGrid.Resources>
                     <DataGrid.Columns>
-                        <DataGridTextColumn Width="*" Header="رقم الجامعي للطالب" Binding="{Binding EmployeeNumber}"></DataGridTextColumn>
-                        <DataGridTextColumn Width="*" Header="نوع التسجيل" Binding="{Binding Address}"></DataGridTextColumn>
-                        <DataGridTextColumn Width="*" Header="تاريخ التسجيل" Binding="{Binding Address}"></DataGridTextColumn>
+                        <DataGridTextColumn Width="*" Header="اسم الطالب"    Binding="{Binding Student.FirstName}"></DataGridTextColumn>
+                        <DataGridTextColumn Width="*" Header="نوع التسجيل" Binding="{Binding RegType}"></DataGridTextColumn>
+                        <DataGridTextColumn Width="*" Header="تاريخ التسجيل" Binding="{Binding RegDate , StringFormat=d}"></DataGridTextColumn>
                         <DataGridTemplateColumn Width="*">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate >
                                     <StackPanel Orientation="Horizontal">
-                                        <Button       ToolTip="عرض"                  Width="20" Height="20"  materialDesign:ShadowAssist.ShadowDepth="Depth0"  BorderThickness="0" Name="ButtonShow" Click="ButtonShow_OnClick"  CommandParameter="{Binding Id}" >
-                                            <Button.Background>
-                                                <ImageBrush  ImageSource ="../Images/eye.png">
-                                                </ImageBrush>
-                                            </Button.Background>
 
-                                        </Button>
-                                        <Button   Margin="10 0 10 0"  ToolTip="تعديل"      Click="ButtonEdit_OnClick"                Width="20" Height="20"  materialDesign:ShadowAssist.ShadowDepth="Depth0"  BorderThickness="0" Name="ButtonEdit"  CommandParameter="{Binding Id}"   >
+                                        <Button   Margin="20 0 20 0"  ToolTip="تعديل"      Click="ButtonEdit_OnClick"   Width="20" Height="20"  materialDesign:ShadowAssist.ShadowDepth="Depth0"  BorderThickness="0" Name="ButtonEdit"  CommandParameter="{Binding Id}"   >
                                             <Button.Background>
                                                 <ImageBrush  ImageSource="../Images/create-new-pencil-button.png">
                                                 </ImageBrush>
                                             </Button.Background>
 
                                         </Button>
-                                        <Button             ToolTip="حذف"      Click="ButtonDelete_OnClick"        Width="20" Height="20"  materialDesign:ShadowAssist.ShadowDepth="Depth0"  BorderThickness="0" Name="ButtonDelete"   CommandParameter="{Binding Id}">
+                                        <Button         Margin="20 0 20 0"    ToolTip="حذف"      Click="ButtonDelete_OnClick"        Width="20" Height="20"  materialDesign:ShadowAssist.ShadowDepth="Depth0"  BorderThickness="0" Name="ButtonDelete"   CommandParameter="{Binding Id}">
                                             <Button.Background>
                                                 <ImageBrush  ImageSource="../Images/cancel-button.png">
                                                 </ImageBrush>

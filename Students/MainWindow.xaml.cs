@@ -26,6 +26,7 @@ namespace Students
         private MainCon MainCon;
         private ElementCon ElementCon;
         private OperationsCon OperationsCon;
+        private StatCon StatCon;
         public MainWindow()
         {
             InitializeComponent();
@@ -83,6 +84,7 @@ private void LabelMain_OnPreviewMouseLeftButtonDown(object sender, MouseButtonEv
             var bc = new BrushConverter();
             ElementCard.Background = (Brush)bc.ConvertFrom("#ff80ab");
             OpCard.Background = Brushes.LightPink;
+            StatCard.Background = Brushes.LightPink;
         }
 
         private void BtnHome_OnClick(object sender, RoutedEventArgs e)
@@ -99,10 +101,21 @@ private void LabelMain_OnPreviewMouseLeftButtonDown(object sender, MouseButtonEv
            OperationsCon = new OperationsCon();
             MyGrid.Children.Add(OperationsCon);
             ElementCard.Background = Brushes.LightPink;
+            StatCard.Background = Brushes.LightPink;
             var bc = new BrushConverter();
             OpCard.Background = (Brush)bc.ConvertFrom("#ff80ab");
 
 
+        }
+
+        private void StatCart_OnMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            StatCon = new StatCon();
+            MyGrid.Children.Add(StatCon);
+            ElementCard.Background = Brushes.LightPink;
+            OpCard.Background = Brushes.LightPink;
+            var bc = new BrushConverter();
+            StatCard.Background = (Brush)bc.ConvertFrom("#ff80ab");
         }
     }
 }

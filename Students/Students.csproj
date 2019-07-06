@@ -73,17 +73,20 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Migrations\201906242228109_opp.cs" />
-    <Compile Include="Migrations\201906242228109_opp.Designer.cs">
-      <DependentUpon>201906242228109_opp.cs</DependentUpon>
+    <Compile Include="Migrations\201906280932230_row.cs" />
+    <Compile Include="Migrations\201906280932230_row.Designer.cs">
+      <DependentUpon>201906280932230_row.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201906272029327_we.cs" />
-    <Compile Include="Migrations\201906272029327_we.Designer.cs">
-      <DependentUpon>201906272029327_we.cs</DependentUpon>
+    <Compile Include="Migrations\201906280934216_rowr.cs" />
+    <Compile Include="Migrations\201906280934216_rowr.Designer.cs">
+      <DependentUpon>201906280934216_rowr.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Views\ElementCon.xaml.cs">
       <DependentUpon>ElementCon.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FirstStatCon.xaml.cs">
+      <DependentUpon>FirstStatCon.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\IntroductiveCon.xaml.cs">
       <DependentUpon>IntroductiveCon.xaml</DependentUpon>
@@ -96,6 +99,9 @@
     </Compile>
     <Compile Include="Views\RegesterCon.xaml.cs">
       <DependentUpon>RegesterCon.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\StatCon.xaml.cs">
+      <DependentUpon>StatCon.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\StudentCon.xaml.cs">
       <DependentUpon>StudentCon.xaml</DependentUpon>
@@ -119,6 +125,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\FirstStatCon.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\IntroductiveCon.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -135,6 +145,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\StatCon.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\StudentCon.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -148,7 +162,6 @@
     <Compile Include="Models\DataContext.cs" />
     <Compile Include="Models\Introductive  .cs" />
     <Compile Include="Models\Registering.cs" />
-    <Compile Include="Models\RegType.cs" />
     <Compile Include="Models\Student.cs" />
     <Compile Include="Models\Subject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -164,11 +177,11 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Include="Migrations\201906242228109_opp.resx">
-      <DependentUpon>201906242228109_opp.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201906280932230_row.resx">
+      <DependentUpon>201906280932230_row.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201906272029327_we.resx">
-      <DependentUpon>201906272029327_we.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201906280934216_rowr.resx">
+      <DependentUpon>201906280934216_rowr.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
