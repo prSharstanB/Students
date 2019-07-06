@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.ComponentModel.Design.Serialization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms.VisualStyles;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -32,9 +34,10 @@ namespace Students.Views
        private ObservableCollection<IntroductiveAvgStudyYear> IntroductiveAvgStudyYears;
         private ObservableCollection<Student> Students;
         private ObservableCollection<IntroductiveForChart> IntroductiveForCharts;
-        private ObservableCollection<Introductive> Introductives;
+        private bool FirstTimeOnly = false;
+      //  private ObservableCollection<IntroductiveFoDate> IntroductiveFoDates;
         private int []averages = new int[5];
-
+      //  public List<DateTime> AvgList = new List<DateTime>();
         public FirstStatCon()
         {
             InitializeComponent();
@@ -52,11 +55,11 @@ namespace Students.Views
             };
             FirstSeriesCollection = new SeriesCollection
             {
-                new LineSeries
+                new ColumnSeries()
                 {
-                    Title = "",
-                    Values = new ChartValues<double>{0d , 0d , 0d , 0d , 0d},
-                    PointGeometry = null
+                    Title = "معدل الجامعة",
+                    Values = new ChartValues<double>{},
+                    
                 }
             };
          
@@ -64,11 +67,8 @@ namespace Students.Views
             {
                 "الاولى", "الثانية", "الثالثة", "الرابعة", "الخامسة",
             };
+           
 
-            //for (int i = 0; i < Introductives.Count; i++)
-            //{
-            //    AvgList[i] = Introductives[i].IntDate.Year;
-            //}
             DataContext = this;
             Worker.DoWork += WOrkerDO;
             Worker.RunWorkerCompleted += WorkerrunCom;
@@ -80,7 +80,8 @@ namespace Students.Views
         public SeriesCollection FirstSeriesCollection { get; set; }
         public SeriesCollection SecondSeriesCollection { get; set; }
         public string[] LabelsTrans { get; set; }
-        public List<int> AvgList { get; set; }
+        public int[] Labels { get; set; }
+        
         public ObservableCollection<T> TObservableCollection<T>(IEnumerable<T> enumerable)
         {
             return new ObservableCollection<T>(enumerable);
@@ -99,26 +100,40 @@ namespace Students.Views
 
         private void WOrkerDO(object sender, DoWorkEventArgs e)
         {
+
+            //IntroductiveFoDates = TObservableCollection(Context.Introductives.Where(i => !i.isDeleted).OrderBy(o => o.IntDate.Year).Select(
+            //    s => new IntroductiveFoDate
+            //    {
+            //        IntDate = s.IntDate.Year
+            //    }).Distinct());
+            
             Students = TObservableCollection(Context.Students.Where(i => !i.isDeleted));
 
-            IntroductiveForCharts = TObservableCollection(Context.Introductives.Where(i => !i.isDeleted)
-                .GroupBy(i => new {i.IntDate.Year 
-        }).Select( 
+            IntroductiveForCharts = TObservableCollection(Context.Introductives.Where(i => !i.isDeleted).OrderBy(i => i.IntDate)
+                .GroupBy(i =>i.IntDate.Year 
+        ).Select( 
                     a => new IntroductiveForChart
                     {
                         TotalAvg = a.Average(o => o.Avg), 
                     }));
-            
-
         }
         private void WorkerrunCom(object sender, RunWorkerCompletedEventArgs e)
         {
             dh.IsOpen = false;
-            for (int j = 0; j < FirstSeriesCollection[0].Values.Count; j++)
+            if (!FirstTimeOnly)
             {
-                FirstSeriesCollection[0].Values[j] = IntroductiveForCharts[j].TotalAvg;
+                for (int j = 0; j < IntroductiveForCharts.Count; j++)
+                {
+                    FirstSeriesCollection[0].Values.Add(
+
+                        IntroductiveForCharts[j].TotalAvg
+                    );
+                }
+
+                FirstTimeOnly = true;
             }
 
+            DataContext = this;
         }
         private void Dh_OnLoaded(object sender, RoutedEventArgs e)
         {

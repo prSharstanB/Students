@@ -47,12 +47,17 @@ namespace Students.Models
     class IntroductiveForChart
     {
         public double TotalAvg { get; set; }
-        public DateTime IntDate { get; set; }
         public bool isDeleted { get; set; }
+        public int IntDate { get; set; }
         public int StudentId { get; set; }
         public Student Student { get; set; }
         public int SubjectId { get; set; }
         public Subject Subject { get; set; }
     }
+    //class IntroductiveFoDate
+    //{
+    //    public int IntDate { get; set; }
+       
+    //}
 
 }
