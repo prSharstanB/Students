@@ -20,17 +20,26 @@ namespace Students.Models
         public ICollection<Registering> Registerings { set; get; }
     }
 
-    class FullName
+    class StudentForChart
     {
-        public int Id { get; set; }
-        public String fullName { get; set; }
-        public DateTime BirthDate { get; set; }
-        public int Phone { get; set; }
+
         public int? StuNumber { get; set; }
-        public String Gender { get; set; }
-        public bool isDeleted { get; set; }
+        public double Avg { get; set; }
+        public int StudyYear { get; set; }
         public ICollection<Introductive> Introductives { set; get; }
+        public ICollection<double> AvgCollection { set; get; }
         public ICollection<Registering> Registerings { set; get; }
     }
-   
+
+    //class StudentForChartFinal
+    //{
+
+    //    public int? StuNumber { get; set; }
+    //    public double Avg { get; set; }
+    //    public ICollection<Introductive> Introductives { set; get; }
+    //    public ICollection<Registering> Registerings { set; get; }
+    //}
+
+
+
 }

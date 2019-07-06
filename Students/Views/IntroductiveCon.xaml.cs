@@ -30,6 +30,7 @@ namespace Students.Views
         private Introductive Introductive;
         private ObservableCollection<Introductive> Introductives;
         private ObservableCollection<Subject> Subjects;
+        private ObservableCollection<IntroductiveFullName> IntroductiveFullNames;
         private int EditId;
         public IntroductiveCon()
         {
@@ -56,12 +57,21 @@ namespace Students.Views
         {
             Introductives = TObservableCollection(Context.Introductives.Where(i => !i.isDeleted).Include(nameof(Student)).Where(i=>i.StudentId == i.Student.Id).Include(nameof(Subject)).Where(i=> i.SubjectId == i.Subject.Id));
             Subjects = TObservableCollection(Context.Subjects.Where(i => !i.isDeleted));
+            IntroductiveFullNames = TObservableCollection(Context.Introductives.Where(i => !i.isDeleted).Include(nameof(Subject)).Where(b => b.SubjectId == b.Subject.Id).Select(a =>
+                new IntroductiveFullName
+                {
+                    Id = a.Id,
+                    IntDate = a.IntDate,
+                    FullName = a.Student.FirstName + " " + a.Student.LastName,
+                    Avg = a.Avg,
+                    SubjectName = a.Subject.Name
+                }));
         }
         private void WorkerrunCom(object sender, RunWorkerCompletedEventArgs e)
         {
             dh.IsOpen = false;
             ComSubject.ItemsSource = Subjects;
-            DgvIntro.ItemsSource = Introductives;
+            DgvIntro.ItemsSource = IntroductiveFullNames;
 
         }
         private void Dh_OnLoaded(object sender, RoutedEventArgs e)

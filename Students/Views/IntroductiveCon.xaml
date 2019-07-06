@@ -129,8 +129,8 @@
                         </Style>
                     </DataGrid.Resources>
                     <DataGrid.Columns>
-                        <DataGridTextColumn Width="*" Header="اسم الطالب " Binding="{Binding Student.FirstName}"></DataGridTextColumn>
-                        <DataGridTextColumn Width="*" Header="المقرر" Binding="{Binding Subject.Name}"></DataGridTextColumn>
+                        <DataGridTextColumn Width="*" Header="اسم الطالب " Binding="{Binding FullName}"></DataGridTextColumn>
+                        <DataGridTextColumn Width="*" Header="المقرر" Binding="{Binding SubjectName}"></DataGridTextColumn>
                         <DataGridTextColumn Width="*" Header="المعدل" Binding="{Binding Avg}"></DataGridTextColumn>
                         <DataGridTextColumn Width="*" Header="تاريخ التقديم" Binding="{Binding IntDate ,StringFormat=d}"></DataGridTextColumn>
                         <DataGridTemplateColumn Width="*">

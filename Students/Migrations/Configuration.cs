@@ -10,6 +10,7 @@ namespace Students.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
+            ContextKey = "Students.Models.DataContext";
         }
 
         protected override void Seed(Students.Models.DataContext context)

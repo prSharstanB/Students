@@ -17,4 +17,42 @@ namespace Students.Models
         public int SubjectId { get; set; }
         public Subject Subject { get; set; }
     }
+
+    class IntroductiveFullName
+    {
+        public int Id { get; set; }
+        public String FullName { get; set; }
+        public DateTime IntDate { get; set; }
+        public int Avg { get; set; }
+        public bool isDeleted { get; set; }
+        public String SubjectName { get; set; }
+        public int StudentId { get; set; }
+        public Student Student { get; set; }
+        public int SubjectId { get; set; }
+        public Subject Subject { get; set; }
+    }
+
+    class IntroductiveAvgStudyYear
+    {
+        public int Id { get; set; }
+        public int Avg { get; set; }
+        public bool isDeleted { get; set; }
+        public int StudYear { get; set; }
+        public int StudentId { get; set; }
+        public Student Student { get; set; }
+        public int SubjectId { get; set; }
+        public Subject Subject { get; set; }
+    }
+
+    class IntroductiveForChart
+    {
+        public double TotalAvg { get; set; }
+        public DateTime IntDate { get; set; }
+        public bool isDeleted { get; set; }
+        public int StudentId { get; set; }
+        public Student Student { get; set; }
+        public int SubjectId { get; set; }
+        public Subject Subject { get; set; }
+    }
+
 }

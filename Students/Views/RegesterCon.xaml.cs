@@ -28,6 +28,8 @@ namespace Students.Views
         private DataContext Context;
         private Registering Registering;
         private ObservableCollection<Registering> Registerings;
+        private ObservableCollection<FullName> _fullNames;
+      
         private int EditID;
        
         public RegesterCon()
@@ -52,14 +54,38 @@ namespace Students.Views
             }
 
         }
+
+       
         private void WOrkerDO(object sender, DoWorkEventArgs e)
         {
-            Registerings =TObservableCollection(Context.Registerings.Where(i=> i.isDeleted == false).Include(nameof(Student)).Where(i=> i.Student.Id == i.StudentId));
+            Registerings = TObservableCollection(Context.Registerings.Where(i => !i.isDeleted).Include(nameof(Student)).Where(i=> i.Student.Id == i.StudentId && !i.isDeleted));
+            
+              _fullNames = TObservableCollection(Context.Registerings.Where(i => i.isDeleted == false).Select(a =>
+                new FullName
+                {
+                    Id = a.Id,
+                    RegDate = a.RegDate,
+                    fullName = a.Student.FirstName + " " + a.Student.LastName,
+                    RegType = a.RegType,
+                    
+                }).ToList());
         }
+
+        private String ChangeType(int value)
+        {
+            if (value == 0) return "";
+            else if (value == 1) return "";
+            else
+            {
+                return "";
+            }
+        }
+       
+
         private void WorkerrunCom(object sender, RunWorkerCompletedEventArgs e)
         {
             dh.IsOpen = false;
-            DgvReg.ItemsSource = Registerings;
+            DgvReg.ItemsSource = _fullNames;
             
         }
 
@@ -162,6 +188,11 @@ namespace Students.Views
             var q = Context.Registerings.SingleOrDefault(i => i.Id == EditID && !i.isDeleted);
             TxtNum.Text = q.Student.StuNumber.ToString();
             DpReg.Text = q.RegDate.ToString();
+            if (q.RegType == 0)
+                ComType.Text = "تسجيل كمستجد";
+            else if (q.RegType == 1)
+                ComType.Text = "إيقاف التسجيل";
+            else ComType.Text = "استئناف التسجيل";
             BtnEditAdd.IsChecked = true;
         }
 

@@ -27,6 +27,7 @@ namespace Students.Views
         private DataContext Context;
         private Subject Subject;
         private ObservableCollection<Subject> Subjects;
+        private ObservableCollection<SubjectStudyYear> SubjectStudyYears;
         private int EditID;
         public SubjectCon()
         {
@@ -51,12 +52,19 @@ namespace Students.Views
         }
         private void WOrkerDO(object sender, DoWorkEventArgs e)
         {
-            Subjects = TObservableCollection(Context.Subjects.Where(i => i.isDeleted == false));
+            Subjects = TObservableCollection(Context.Subjects.Where(i => !i.isDeleted));
+            SubjectStudyYears = TObservableCollection(Context.Subjects.Where(i=> !i.isDeleted).Select(a => new SubjectStudyYear
+            {
+                Id = a.Id,
+               Type  = a.Type,
+               StudyYearNum = a.StudyYear,
+                Name = a.Name
+            }).ToList());
         }
         private void WorkerrunCom(object sender, RunWorkerCompletedEventArgs e)
         {
             dh.IsOpen = false;
-            DgvSubject.ItemsSource = Subjects;
+            DgvSubject.ItemsSource = SubjectStudyYears;
         }
 
         private void Dh_OnLoaded(object sender, RoutedEventArgs e)
@@ -68,12 +76,27 @@ namespace Students.Views
 
         private void ButtonEdit_OnClick(object sender, RoutedEventArgs e)
         {
+            string studyYear;
             object id = ((Button) sender).CommandParameter;
             EditID = (int) id;
             var q = Context.Subjects.SingleOrDefault(i => i.Id == EditID && i.isDeleted == false);
+
             TxtName.Text = q.Name;
             ComSubject.Text = q.Type;
-            ComStudyYear.Text = q.StudyYear;
+            if (q.StudyYear == 1)
+                studyYear= "الأولى";
+            else if (q.StudyYear == 2) studyYear= "الثانية";
+            else if (q.StudyYear == 3) studyYear= "الثالثة";
+            else if (q.StudyYear == 4) studyYear= "الرابعة";
+            else if (q.StudyYear == 5)
+            {
+                studyYear= "الخامسة";
+            }
+            else
+            {
+                studyYear= "السادسة";
+            }
+            ComStudyYear.Text = studyYear;
             BtnEditAdd.IsChecked = true;
 
         }
@@ -86,16 +109,32 @@ namespace Students.Views
             MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("Are you sure?", "Delete Confirmation", System.Windows.MessageBoxButton.YesNo);
             if (messageBoxResult == MessageBoxResult.Yes)
             {
-                var q = Context.Subjects.Single(i => i.Id == EditID && i.isDeleted == false);
+                var q = Context.Subjects.Single(i => i.Id == EditID && !i.isDeleted);
                 q.isDeleted = true;
                 Context.SaveChanges();
                 Load();
             }
         }
 
+        public int StudyYear(string value)
+        {
+            if (value == "الاولى")
+                return  1;
+            else if (value == "الثانية") return  2;
+            else if (value == "الثالثة") return  3;
+            else if (value == "الرابعة") return 4;
+            else if (value == "الخامسة")
+            {
+                return 5;
+            }
+            else
+            {
+                return 6;
+            }
+        }
         private void BtnEditAdd_OnClick(object sender, RoutedEventArgs e)
         {
-            
+            int value = StudyYear(ComStudyYear.Text);
             if (BtnEditAdd.IsChecked == true)
             {
                 var q = Context.Subjects.SingleOrDefault(i => i.Name == TxtName.Text && i.Type == ComSubject.Text);
@@ -105,7 +144,7 @@ namespace Students.Views
                     {
                         Name = TxtName.Text,
                         Type = ComSubject.Text,
-                        StudyYear = ComStudyYear.Text
+                        StudyYear =value
                     };
                     Context.Subjects.Add(Subject);
 
@@ -125,7 +164,7 @@ namespace Students.Views
                     var query = Context.Subjects.Single(i => i.Id == EditID && i.isDeleted == false);
                     query.Name = TxtName.Text;
                     query.Type = ComSubject.Text;
-                    query.StudyYear = ComStudyYear.Text;
+                    query.StudyYear =value;
                     BtnEditAdd.IsChecked = false;
                 }
                 else
@@ -137,6 +176,7 @@ namespace Students.Views
 
             TxtName.Text = "";
             ComSubject.Text = "";
+            ComStudyYear.Text = "";
             Context.SaveChanges();
             Load();
         }

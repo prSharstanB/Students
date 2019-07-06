@@ -117,8 +117,8 @@
                         </Style>
                     </DataGrid.Resources>
                     <DataGrid.Columns>
-                        <DataGridTextColumn Width="*" Header="اسم الطالب"    Binding="{Binding Student.FirstName}"></DataGridTextColumn>
-                        <DataGridTextColumn Width="*" Header="نوع التسجيل" Binding="{Binding RegType}"></DataGridTextColumn>
+                        <DataGridTextColumn Width="*" Header="اسم الطالب"    Binding="{Binding fullName}"></DataGridTextColumn>
+                        <DataGridTextColumn Width="*" Header="نوع التسجيل" Binding="{Binding RegTypeChange}"></DataGridTextColumn>
                         <DataGridTextColumn Width="*" Header="تاريخ التسجيل" Binding="{Binding RegDate , StringFormat=d}"></DataGridTextColumn>
                         <DataGridTemplateColumn Width="*">
                             <DataGridTemplateColumn.CellTemplate>

@@ -56,7 +56,7 @@
                                       materialDesign:ShadowAssist.ShadowDepth="Depth1" Margin="50 25 50 0" Background="#F9F9F9"
                                       Padding="2 0 0 0">
                     <ComboBox
-                        materialDesign:HintAssist.Hint="نوع المقرر" Name="ComStudyYear"
+                        materialDesign:HintAssist.Hint="السنة الدراسية" Name="ComStudyYear"
                         Style="{StaticResource MaterialDesignFloatingHintComboBox}">
                         <ComboBoxItem>
                             الاولى 
